@@ -1,21 +1,17 @@
 using CurrencyConverterCBR.Data;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Serilog;
 using Serilog.Events;
+using System;
 using System.IO;
-using Microsoft.OpenApi.Models;
 
 
-namespace CurrencyConverterCBR {
+namespace CurrencyConverterCBR
+{
     public class Startup {
         public Startup(IConfiguration configuration) {
             Configuration = configuration;
@@ -58,14 +54,15 @@ namespace CurrencyConverterCBR {
 
             app.UseRouting();
 
-            app.UseEndpoints(endpoints => {
-                endpoints.MapControllers();
-            });
-
             //app.UseEndpoints(endpoints => {
-            //    endpoints.MapBlazorHub();
-            //    endpoints.MapFallbackToPage("/_Host");
+            //    endpoints.MapControllers();
             //});
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapBlazorHub();
+                endpoints.MapFallbackToPage("/_Host");
+            });
         }
     }
 }

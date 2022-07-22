@@ -1,14 +1,13 @@
 ﻿using Serilog;
 using System.Collections.Generic;
 using System.IO;
-using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml.Linq;
 using System.Xml.Serialization;
 
-namespace CurrencyConverterCBR.Data {
+namespace CurrencyConverterCBR.Data
+{
     public class ConverterService : IConverterService {
         private readonly ILogger _logger;
         public ConverterService(ILogger logger) { 

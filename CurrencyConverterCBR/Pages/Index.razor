@@ -1,6 +1,41 @@
 ﻿@page "/"
+@using CurrencyConverterCBR.Data
+@inject IConverterService ConverterService
 
-<h1>Hello, world!</h1>
 
-Welcome to your new app.
+<h1>Converter</h1>
 
+<input class="form-control" id="@amount" @bind="@amount"></input>
+
+<select class="form-control selectpicker" @bind="ValCursValute.NumCode">
+    <option>--select--</option>
+    @foreach (var item in quotes) {
+        <option value="@item.NumCode">@item.Name</option>
+    }
+</select>
+
+<button class="btn btn-primary" @onclick="Calculate">Calculate</button>
+
+<p role="status">Summ: @Summ</p>
+
+@code {
+    public ValCursValute ValCursValute { get; set; }
+    private List<ValCursValute> quotes;
+    private decimal amount;
+    private decimal Summ;
+
+    async Task Calculate() {
+        ValCursValute currentCurrency = (from c in quotes
+                                        .Where(c => c.NumCode == ValCursValute.NumCode)
+                                          select c).First();
+        Summ = amount * decimal.Parse(currentCurrency.Value, System.Globalization.NumberStyles.Any) / currentCurrency.Nominal;
+
+        StateHasChanged();
+    }
+
+    protected override async Task OnInitializedAsync() {
+        ValCursValute = new ValCursValute();
+        quotes = new List<ValCursValute>();
+        quotes = await ConverterService.GetCurrenciesRates();
+    }
+}
