@@ -5,9 +5,10 @@
 
 <h1>Converter</h1>
 
-<input class="form-control" id="@amount" @bind="@amount"></input>
+<label class="form-label">Currency Summ:</label>
+<input class="form-control" style="width:450px;max-width:450px;" id="@amount" @bind="@amount"></input>
 
-<select class="form-control selectpicker" @bind="ValCursValute.NumCode">
+<select class="form-control selectpicker" style="width:450px;max-width:450px;" @bind="ValCursValute.NumCode">
     <option>--select--</option>
     @foreach (var item in quotes) {
         <option value="@item.NumCode">@item.Name</option>
@@ -16,7 +17,9 @@
 
 <button class="btn btn-primary" @onclick="Calculate">Calculate</button>
 
-<p role="status">Summ: @Summ</p>
+<br>
+<label class="form-label">Rouble Summ:</label>
+<p role="status">@Summ</p>
 
 @code {
     public ValCursValute ValCursValute { get; set; }
